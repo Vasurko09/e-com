@@ -1,0 +1,161 @@
+{%load static%}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'css/home1.css'%}">
+    <style>
+        .navbar{
+            height: 3rem;
+            width: 100%;
+            background-color: rgb(17, 15, 24);
+            display: flex;
+        }
+        #Main-Title{
+            margin-top: 0px;
+            padding-top: 0.8rem;
+            color: rgb(252, 233, 210);
+            margin-left: 0.5rem;
+        }
+        #login{
+            color: antiquewhite;
+            padding-top: 0.9rem;
+            padding-left: 60rem;
+
+        }
+
+        #cart{
+            color: antiquewhite;
+            padding-top: 0.9rem;
+            padding-left: 1rem;
+
+        }
+        #signup{
+            color: antiquewhite;
+            padding-top: 0.9rem;
+            padding-left: 1rem;
+
+        }
+        #user{
+            color: antiquewhite;
+            padding-top: 0.9rem;
+            padding-left: 1rem;
+
+        }
+        body{
+            margin-top: 0px;
+            margin-left: 0px;
+            margin-right: 0px;
+            background: #bcdee7 ;
+
+
+        }
+        .Categories{
+            text-align: center;
+            font-size: 1.2rem;
+            height:1.5rem;
+            width: 100%;
+            background-color: rgb(28, 24, 39);
+        }
+        .Categories span{
+            margin-right: 4rem;
+            color: aliceblue;
+        }
+        .Products{
+            display: flex;
+        }
+        .ProductItem{
+            width: 100px;
+        }
+        .product{
+            margin-bottom: 2rem;
+
+        }
+        .info:after{
+            border-radius: 10ox;
+        }
+        .imgs{
+            max-width: 100%;
+            height: 240px;
+            object-fit:cover;
+
+        }
+        #login a{
+            text-decoration: none;
+            color: antiquewhite;
+           
+        }
+
+    </style>
+</head>
+<body>
+    <!--navbar-->
+    <div class="navbar">
+        <h3 id="Main-Title">E-COM</h3>
+    {%if request.user.is_authenticated%}
+        <span id="login"><a href="logout/">Logout</a></span>
+    {%else%}
+        <span id="login"><a href="login/">Login</a></span>
+
+    {%endif%}
+        <span id="cart"><a href="cart/">Cart</a></span>
+        <span id="signup">Sign Up</span>
+        <span id="user">{{request.user}}</span>
+
+
+    </div>
+    <!--category-secction-->
+    <div class="Categories">
+        {%for category in categories%}
+          <a href="cat/{{category.0}}"><span>{{category.1}}</span></a>
+        {%endfor%}
+    </div>
+    <!--Products-section-->
+   <!-- <div class="Products">
+        {%for product in products%}
+        <div class="ProductItem">
+
+          {%if product.category == 'c'%}
+            <h5>clothing</h5>
+            {%elif product.category == 'e'%}
+            <h5>Electronics</h5>
+            {%elif product.category == 'f'%}
+            <h5>Furniture</h5>
+            {%else%}
+            <h5>Grocery</h5>
+            {%endif%}
+
+        </div>
+        {%endfor%}
+    </div>-->
+
+
+<ul class="listing">
+    {%for product in products%}
+
+  <li class="product">
+    <a class="img-wrapper" href="product-detail/{{product.id}}">
+      <img class="imgs" src="{{product.image}}" alt="{{product.image}}" />
+    </a>
+    
+    <div class="info">
+      <div class="title">{{product.name}}</div>
+      
+      <div class="price">{{product.price}}</div>
+     <!--<div class="note no-stock">Out of stock</div>
+      <div class="note on-sale">On sale</div>
+      <div class="price sale">$20.50</div>
+      <div class="price old">$34.99</div>-->
+      <div class="price old">{{product.id}}</div>
+      
+    </div>
+    
+    
+  </li>
+    {%endfor%}
+</ul>
+</body>
+</html>

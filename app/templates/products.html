@@ -1,0 +1,185 @@
+{%load static%}
+<html lang="en">
+
+<head>
+  <title>Harvest vase</title>
+</head>
+<link rel="stylesheet" href="{% static 'css/home1.css'%}">
+
+<style>
+    *
+  {
+    box-sizing: border-box;
+    font-family: 'Open Sans', 'Arial', sans-serif;
+  }
+  .navbar{
+      height: 3rem;
+      width: 100%;
+      background-color: rgb(17, 15, 24);
+      display: flex;
+  }
+  #Main-Title{
+      margin-top: 0px;
+      padding-top: 0.8rem;
+      color: rgb(252, 233, 210);
+      margin-left: 0.5rem;
+      font-family: 'Open Sans', 'Arial', sans-serif;
+
+      
+
+  }
+  #Main-Title a{
+    text-decoration: none;
+    color: rgb(252, 233, 210);
+
+  }
+  #login{
+      color: rgb(232, 224, 213);
+      padding-top: 0.9rem;
+      padding-left: 60rem;
+
+  }
+  #signup{
+      color: antiquewhite;
+      padding-top: 0.9rem;
+      padding-left: 1rem;
+
+  }
+  #user{
+      color: antiquewhite;
+      padding-top: 0.9rem;
+      padding-left: 1rem;
+
+  }
+  body{
+      margin-top: 0px;
+      margin-left: 0px;
+      margin-right: 0px;
+
+  }
+  .Categories{
+      text-align: center;
+      font-size: 1.2rem;
+      height:1.5rem;
+      width: 100%;
+      background-color: rgb(28, 24, 39);
+  }
+  .Categories span{
+      margin-right: 4rem;
+      color: aliceblue;
+  }
+  .Products{
+      display: flex;
+  }
+  .ProductItem{
+      width: 100px;
+  }
+  .product{
+      margin-bottom: 2rem;
+
+  }
+  .info:after{
+      border-radius: 10ox;
+  }
+  .imgs{
+      max-width: 100%;
+      height: 240px;
+      object-fit:cover;
+
+  }
+  </style>
+
+
+<body>
+  <!--navbar-->
+  <div class="navbar">
+    <h3 id="Main-Title"><a href="/">E-COM</a></h3>
+
+    <span id="login">Login</span>
+    <span id="signup">Sign Up</span>
+    <span id="user">{{request.user}}</span>
+
+
+</div>
+<!--category-secction-->
+<div class="Categories">
+
+    {%for category in categories%}
+      <a href="{{category.0}}"><span>{{category.1}}</span></a>
+    {%endfor%}
+</div>
+  <ul class="listing">
+    {% for product in products%}
+    <li class="product">
+      <a class="img-wrapper" href="#">
+        <img class="imgs" src="{{product.image.url}}" alt="{{product.image}}" />
+      </a>
+      
+      <div class="info">
+        <div class="title">{{product.name}}</div>
+        
+        <div class="price">{{product.price}}</div>
+
+        
+      </div>
+      
+      
+    </li>
+
+    
+    {%endfor%}
+  </ul>
+</body>
+
+</html>
+<ul class="listing">
+
+  <div class="product">
+    
+    
+    <div class="info">
+      <div class="title"> product name :<?= $row['productname']; ?></div>
+      
+      <div class="price">price :<?= number_format($row['price']); ?></div>
+      
+
+      
+    </div>
+    
+    
+    
+  </div>
+  <div class="d-grid gap-2 ">
+              <a class="btn btn-success" href="order.php?id=<?= $row['id']; ?>"> buy</a>
+      </div>
+
+      <div class="text-center">
+        <h3>product details</h3> <br>
+        <span>product name : <?= $productname;?></span> <br>
+        <span>discription : <?= $discription;?> </span> <br>
+        <span>price : <?= $price;?> </span> <br>
+        <span>delvery charge : <?= $del_charge;?></span> <br>
+        <span> total : <?= $total_price;?> </span>
+        
+    
+        <br> <br>
+    
+        <h2>enter your details</h2>
+        <form action="pay.php" method = "post">
+            <input type="hidden" name = "productname" value = "<?= $productname; ?>">
+            <input type="hidden" name = "price" value = "<?= $price; ?>">
+    
+            <div class="input">
+                <input class="form-control" type="text" name = "name" placeholder = "enter your name" required>
+            </div>
+            <div>
+                <input type="email" name = "email" placeholder = "email address" required>
+            </div>
+            <div>
+                <input type="tel" name = "phone" placeholder = "enter your phone num" required>
+            </div>
+            <div> 
+                <input type="submit" name= "submit" value= "click to pay: <?= $total_price ; ?> ">
+            </div>
+    
+        </form>
